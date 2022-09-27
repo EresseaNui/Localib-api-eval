@@ -62,6 +62,6 @@ export class VehiculeService {
    * @returns Une promesse.
    */
   delete(id: string) {
-    return from(this.vehiculeRepository.delete({ id: id }));
+    return from(this.vehiculeRepository.delete({ id }));
   }
 }

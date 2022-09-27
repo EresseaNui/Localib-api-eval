@@ -1,3 +1,4 @@
+import { ClientModule } from './client.module';
 import { VehiculeModule } from './vehicule.module';
 import { Module } from '@nestjs/common';
 import { AppController } from '../controllers/app.controller';
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     }),
     VehiculeModule,
+    ClientModule,
   ],
   controllers: [AppController],
   providers: [AppService],
