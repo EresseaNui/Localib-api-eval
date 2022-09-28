@@ -1,0 +1,14 @@
+import { CustomerService } from 'src/services/customer.service';
+import { ClientController } from '../controllers/customer.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Module } from '@nestjs/common';
+import { Location } from 'src/entities/locations.entity';
+import { Customer } from 'src/entities/customer.entity';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Customer, Location])],
+  controllers: [ClientController],
+  providers: [CustomerService],
+  exports: [CustomerService],
+})
+export class CustomerModule {}

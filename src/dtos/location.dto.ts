@@ -1,10 +1,10 @@
-import { ClientDto } from './client.dto';
 import { PartialType } from '@nestjs/mapped-types';
+import { CustomerDto } from './customer.dto';
 import { VehicleDto } from './vehicle.dto';
 
 export class LocationDto {
   id: string;
-  client: ClientDto;
+  client: CustomerDto;
   vehicle: VehicleDto;
   date_debut: Date;
   date_fin: Date;

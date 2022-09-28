@@ -57,7 +57,7 @@ export class VehicleService {
   /**
    * Mettre à jour un véhicule par son id et le updateVehiculePayload
    * @param {string} id - chaîne de caractères
-   * @param {UpdateVehicleDto} updateVehiculePayload - UpdateVehiculeDto
+   * @param {UpdateVehicleDto} updateVehiclePayload - UpdateVehiculeDto
    * @returns Le type de retour est Observable&lt;Véhicule&gt;.
    */
   update(id: string, updateVehiclePayload: UpdateVehicleDto) {

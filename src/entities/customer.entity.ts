@@ -2,24 +2,24 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Location } from './locations.entity';
 
 @Entity()
-export class Client {
+export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  nom: string;
+  firstname: string;
 
   @Column()
-  prenom: string;
+  lastname: string;
 
   @Column()
-  date_naissance: Date;
+  birthdate: Date;
 
   @Column()
-  email: string;
+  mail: string;
 
   @Column()
-  telephone: string;
+  phone: string;
 
   @OneToMany(() => Location, (renting) => renting.id)
   rentings: Location[];

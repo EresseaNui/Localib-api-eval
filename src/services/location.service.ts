@@ -1,25 +1,25 @@
+import { Customer } from './../entities/customer.entity';
 import { CreateLocationDto, UpdatelocationDto } from './../dtos/location.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Client } from 'src/entities/client.entity';
 import { Location } from 'src/entities/locations.entity';
 import { Repository, UpdateResult } from 'typeorm';
-import { ClientService } from './client.service';
 import { from, Observable } from 'rxjs';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from 'src/entities/vehicle.entity';
+import { CustomerService } from './customer.service';
 
 @Injectable()
 export class LocationService {
   constructor(
     @InjectRepository(Location)
     private readonly locationRepository: Repository<Location>,
-    private readonly clientService: ClientService,
+    private readonly customerService: CustomerService,
     private readonly vehicleService: VehicleService,
   ) {}
 
   async create(createLocationpayload: CreateLocationDto): Promise<any> {
-    const client: Client = await this.clientService.findOneById(
+    const customer: Customer = await this.customerService.findOneById(
       createLocationpayload.client_id,
     );
     const vehicle: Vehicle = await this.vehicleService.findOneById(
@@ -30,7 +30,7 @@ export class LocationService {
     location.date_debut = createLocationpayload.date_debut;
     location.date_fin = createLocationpayload.date_fin;
     location.tarification = createLocationpayload.tarification;
-    location.client = client;
+    location.customer = customer;
     location.vehicle = vehicle;
 
     const vehiclePayload = {

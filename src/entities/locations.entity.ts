@@ -1,14 +1,14 @@
 import { Vehicle } from './vehicle.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Client } from './client.entity';
+import { Customer } from './customer.entity';
 
 @Entity()
 export class Location {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Client, (client: Client) => client.id)
-  client: Client;
+  @ManyToOne(() => Customer, (customer: Customer) => customer.id)
+  customer: Customer;
 
   @ManyToOne(() => Vehicle, (vehicle: Vehicle) => vehicle.id)
   vehicle: Vehicle;

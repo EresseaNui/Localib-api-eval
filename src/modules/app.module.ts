@@ -1,5 +1,5 @@
 import { LocationModule } from './location.module';
-import { ClientModule } from './client.module';
+import { CustomerModule } from './customer.module';
 import { VehicleModule } from './vehicle.module';
 import { Module } from '@nestjs/common';
 import { AppController } from '../controllers/app.controller';
@@ -21,7 +21,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     }),
     VehicleModule,
-    ClientModule,
+    CustomerModule,
     LocationModule,
   ],
   controllers: [AppController],

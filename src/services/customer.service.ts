@@ -1,33 +1,30 @@
-import {
-  ClientDto,
-  CreateClientDto,
-  UpdateClientDto,
-} from './../dtos/client.dto';
-import { Client } from './../entities/client.entity';
+import { UpdateCustomerDto } from './../dtos/customer.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { from } from 'rxjs';
+import { Customer } from 'src/entities/customer.entity';
+import { CreateCustomerDto } from 'src/dtos/customer.dto';
 
 @Injectable()
-export class ClientService {
+export class CustomerService {
   constructor(
-    @InjectRepository(Client)
-    private readonly clientRepository: Repository<Client>,
+    @InjectRepository(Customer)
+    private readonly customerRepository: Repository<Customer>,
   ) {}
 
   /**
    * Cette fonction prend un objet CreateClientDto et l'insère dans la table Client.
-   * @param {CreateClientDto} createClientPayload - CreateClientDto
+   * @param {CreateCustomerDto} createCustomerPayload - CreateClientDto
    * @returns Une promesse qui se résout en un tableau d'objets.
    */
-  create(createClientPayload: CreateClientDto) {
+  create(createCustomerPayload: CreateCustomerDto) {
     return from(
-      this.clientRepository
+      this.customerRepository
         .createQueryBuilder()
         .insert()
-        .into(Client)
-        .values(createClientPayload)
+        .into(Customer)
+        .values(createCustomerPayload)
         .execute(),
     );
   }
@@ -37,7 +34,7 @@ export class ClientService {
    * @returns Une promesse.
    */
   findAll() {
-    return from(this.clientRepository.find());
+    return from(this.customerRepository.find());
   }
 
   /**
@@ -45,19 +42,19 @@ export class ClientService {
    * @param {string} id - string - l'identifiant du client que vous voulez trouver
    * @returns Une promesse&lt;Client&gt;
    */
-  findOneById(id: string): Promise<Client> {
-    return this.clientRepository.findOneBy({ id });
+  findOneById(id: string): Promise<Customer> {
+    return this.customerRepository.findOneBy({ id });
   }
 
   /**
    * Cette fonction prend un id et un updateClientPayload et retourne un observable du résultat de la
    * fonction de mise à jour du clientRepository.
    * @param {string} id - string - l'identifiant du client que vous souhaitez mettre à jour
-   * @param {UpdateClientDto} updateClientPayload - UpdateClientDto
+   * @param {UpdateCustomerDto} updateCustomerPayload - UpdateClientDto
    * @returns La valeur de retour est une Promesse&lt;Client&gt;.
    */
-  update(id: string, updateClientPayload: UpdateClientDto) {
-    return from(this.clientRepository.update({ id }, updateClientPayload));
+  update(id: string, updateCustomerPayload: UpdateCustomerDto) {
+    return from(this.customerRepository.update({ id }, updateCustomerPayload));
   }
 
   /**
@@ -66,6 +63,6 @@ export class ClientService {
    * @returns La valeur de retour est une Promise&lt;void&gt;.
    */
   delete(id: string) {
-    return from(this.clientRepository.delete({ id }));
+    return from(this.customerRepository.delete({ id }));
   }
 }
