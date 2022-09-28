@@ -42,7 +42,14 @@ export class RentingService {
   }
 
   findAll(): Observable<Renting[]> {
-    return from(this.rentingRepository.find());
+    return from(
+      this.rentingRepository.find({
+        relations: {
+          vehicle: true,
+          customer: true,
+        },
+      }),
+    );
   }
 
   findOnyById(id: string): Promise<Renting> {

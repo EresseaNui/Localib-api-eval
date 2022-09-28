@@ -7,6 +7,7 @@ export class Renting {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  
   @ManyToOne(() => Customer, (customer: Customer) => customer.id)
   customer: Customer;
 
