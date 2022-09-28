@@ -1,4 +1,8 @@
-import { CreateClientDto, UpdateClientDto } from './../dtos/client.dto';
+import {
+  ClientDto,
+  CreateClientDto,
+  UpdateClientDto,
+} from './../dtos/client.dto';
 import { Client } from './../entities/client.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -41,8 +45,8 @@ export class ClientService {
    * @param {string} id - string - l'identifiant du client que vous voulez trouver
    * @returns Une promesse&lt;Client&gt;
    */
-  findOneById(id: string) {
-    return from(this.clientRepository.findOneBy({ id }));
+  findOneById(id: string): Promise<ClientDto> {
+    return this.clientRepository.findOneBy({ id });
   }
 
   /**

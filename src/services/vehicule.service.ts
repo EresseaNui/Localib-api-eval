@@ -1,5 +1,9 @@
 import { from } from 'rxjs';
-import { CreateVehiculeDto, UpdateVehiculeDto } from './../dtos/vehicule.dto';
+import {
+  CreateVehiculeDto,
+  UpdateVehiculeDto,
+  VehiculeDto,
+} from './../dtos/vehicule.dto';
 import { Vehicule } from './../entities/vehicule.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -42,8 +46,8 @@ export class VehiculeService {
    * @param {string} id - chaîne de caractères
    * @returns Une promesse&lt;Véhicule&gt;
    */
-  findOneById(id: string) {
-    return from(this.vehiculeRepository.findOneBy({ id }));
+  findOneById(id: string): Promise<VehiculeDto> {
+    return this.vehiculeRepository.findOneBy({ id });
   }
 
   /**
