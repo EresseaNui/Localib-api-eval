@@ -3,7 +3,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Customer } from './customer.entity';
 
 @Entity()
-export class Location {
+export class Renting {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -14,11 +14,11 @@ export class Location {
   vehicle: Vehicle;
 
   @Column()
-  date_debut: Date;
+  start_date: Date;
 
   @Column()
-  date_fin: Date;
+  end_date: Date;
 
   @Column()
-  tarification: number;
+  pricing: number;
 }

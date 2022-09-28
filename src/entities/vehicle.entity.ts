@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Location } from './locations.entity';
+import { Renting } from './renting.entity';
 
 export enum VehicleType {
   CAR = 'car',
@@ -44,6 +44,6 @@ export class Vehicle {
   @Column()
   disponibility: boolean;
 
-  @OneToMany(() => Location, (renting) => renting.id)
-  rentings: Location[];
+  @OneToMany(() => Renting, (renting) => renting.id)
+  rentings: Renting[];
 }

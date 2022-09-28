@@ -1,4 +1,6 @@
-import { CreateLocationDto, UpdatelocationDto } from './../dtos/location.dto';
+import { CreateRentingDto, UpdateRentingDto } from './../dtos/renting.dto';
+import { RentingService } from './../services/renting.service';
+
 import {
   Body,
   Controller,
@@ -8,14 +10,13 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { LocationService } from 'src/services/location.service';
 
-@Controller('locations')
-export class LocationController {
-  constructor(private readonly locationService: LocationService) {}
+@Controller('rentings')
+export class RentingController {
+  constructor(private readonly locationService: RentingService) {}
 
   @Post()
-  create(@Body() createLocationPayload: CreateLocationDto) {
+  create(@Body() createLocationPayload: CreateRentingDto) {
     return this.locationService.create(createLocationPayload);
   }
 
@@ -32,7 +33,7 @@ export class LocationController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateLocationPayload: UpdatelocationDto,
+    @Body() updateLocationPayload: UpdateRentingDto,
   ) {
     return this.locationService.update(id, updateLocationPayload);
   }

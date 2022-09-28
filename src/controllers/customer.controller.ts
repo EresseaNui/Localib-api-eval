@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 @Controller('customers')
-export class ClientController {
+export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}
 
   @Post()
