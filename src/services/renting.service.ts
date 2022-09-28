@@ -53,7 +53,10 @@ export class RentingService {
   }
 
   findOnyById(id: string): Promise<Renting> {
-    return this.rentingRepository.findOneBy({ id });
+    return this.rentingRepository.findOne({
+      where: { id },
+      relations: ['vehicle', 'customer'],
+    });
   }
 
   update(
