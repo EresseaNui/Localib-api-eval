@@ -1,33 +1,37 @@
+import { Vehicle } from '../entities/vehicle.entity';
 import { from } from 'rxjs';
 import {
-  CreateVehiculeDto,
-  UpdateVehiculeDto,
-  VehiculeDto,
-} from './../dtos/vehicule.dto';
-import { Vehicule } from './../entities/vehicule.entity';
+  CreateVehicleDto,
+  UpdateVehicleDto,
+  VehicleDto,
+} from '../dtos/vehicle.dto';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 @Injectable()
-export class VehiculeService {
+export class VehicleService {
   constructor(
-    @InjectRepository(Vehicule)
-    private readonly vehiculeRepository: Repository<Vehicule>,
+    @InjectRepository(Vehicle)
+    private readonly vehicleRepository: Repository<Vehicle>,
   ) {}
 
   /**
    * Il prend un CreateVehiculeDto comme paramètre et renvoie un Observable du résultat de la requête
-   * @param {CreateVehiculeDto} createVehiculePayload - CreateVehiculeDto
+   * @param {CreateVehicleDto} createVehiclePayload - CreateVehiculeDto
    * @returns Une promesse.
    */
-  create(createVehiculePayload: CreateVehiculeDto) {
+  create(createVehiclePayload: CreateVehicleDto) {
+    const payload = {
+      ...createVehiclePayload,
+      disponibility: true,
+    };
     return from(
-      this.vehiculeRepository
+      this.vehicleRepository
         .createQueryBuilder()
         .insert()
-        .into(Vehicule)
-        .values(createVehiculePayload)
+        .into(Vehicle)
+        .values(payload)
         .execute(),
     );
   }
@@ -37,7 +41,7 @@ export class VehiculeService {
    * @returns Un Observable d'un tableau d'entités Vehicule.
    */
   findAll() {
-    return from(this.vehiculeRepository.find());
+    return from(this.vehicleRepository.find());
   }
 
   /**
@@ -46,18 +50,18 @@ export class VehiculeService {
    * @param {string} id - chaîne de caractères
    * @returns Une promesse&lt;Véhicule&gt;
    */
-  findOneById(id: string): Promise<VehiculeDto> {
-    return this.vehiculeRepository.findOneBy({ id });
+  findOneById(id: string): Promise<Vehicle> {
+    return this.vehicleRepository.findOneBy({ id });
   }
 
   /**
    * Mettre à jour un véhicule par son id et le updateVehiculePayload
    * @param {string} id - chaîne de caractères
-   * @param {UpdateVehiculeDto} updateVehiculePayload - UpdateVehiculeDto
+   * @param {UpdateVehicleDto} updateVehiculePayload - UpdateVehiculeDto
    * @returns Le type de retour est Observable&lt;Véhicule&gt;.
    */
-  update(id: string, updateVehiculePayload: UpdateVehiculeDto) {
-    return from(this.vehiculeRepository.update({ id }, updateVehiculePayload));
+  update(id: string, updateVehiclePayload: UpdateVehicleDto) {
+    return from(this.vehicleRepository.update({ id }, updateVehiclePayload));
   }
 
   /**
@@ -66,6 +70,6 @@ export class VehiculeService {
    * @returns Une promesse.
    */
   delete(id: string) {
-    return from(this.vehiculeRepository.delete({ id }));
+    return from(this.vehicleRepository.delete({ id }));
   }
 }

@@ -1,6 +1,5 @@
-// nom prenom datenaissance email telephone
-
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Location } from './locations.entity';
 
 @Entity()
 export class Client {
@@ -21,4 +20,7 @@ export class Client {
 
   @Column()
   telephone: string;
+
+  @OneToMany(() => Location, (renting) => renting.id)
+  rentings: Location[];
 }

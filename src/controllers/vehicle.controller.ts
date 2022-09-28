@@ -1,5 +1,3 @@
-import { CreateVehiculeDto, UpdateVehiculeDto } from './../dtos/vehicule.dto';
-import { VehiculeService } from './../services/vehicule.service';
 import {
   Body,
   Controller,
@@ -9,41 +7,43 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CreateVehicleDto, UpdateVehicleDto } from 'src/dtos/vehicle.dto';
+import { VehicleService } from 'src/services/vehicle.service';
 
-@Controller('vehicules')
-export class VehiculeController {
-  constructor(private readonly vehiculeService: VehiculeService) {}
+@Controller('vehicles')
+export class VehicleController {
+  constructor(private readonly vehicleService: VehicleService) {}
 
   /* Méthode appelée lorsqu'une requête POST est envoyée au point de terminaison /vehicules. */
   @Post()
-  create(@Body() createVehiculePayload: CreateVehiculeDto) {
-    return this.vehiculeService.create(createVehiculePayload);
+  create(@Body() createVehiculePayload: CreateVehicleDto) {
+    return this.vehicleService.create(createVehiculePayload);
   }
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules. */
   @Get()
   findAll() {
-    return this.vehiculeService.findAll();
+    return this.vehicleService.findAll();
   }
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules/:id. */
   @Get(':id')
   findOneById(@Param('id') id: string) {
-    return this.vehiculeService.findOneById(id);
+    return this.vehicleService.findOneById(id);
   }
 
   /* Mise à jour des données dans la base de données. */
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateVehiculePayload: UpdateVehiculeDto,
+    @Body() updateVehiculePayload: UpdateVehicleDto,
   ) {
-    return this.vehiculeService.update(id, updateVehiculePayload);
+    return this.vehicleService.update(id, updateVehiculePayload);
   }
 
   /* Suppression des données de la base de données. */
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.vehiculeService.delete(id);
+    return this.vehicleService.delete(id);
   }
 }

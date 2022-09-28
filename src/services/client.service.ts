@@ -45,7 +45,7 @@ export class ClientService {
    * @param {string} id - string - l'identifiant du client que vous voulez trouver
    * @returns Une promesse&lt;Client&gt;
    */
-  findOneById(id: string): Promise<ClientDto> {
+  findOneById(id: string): Promise<Client> {
     return this.clientRepository.findOneBy({ id });
   }
 

@@ -1,4 +1,4 @@
-import { Vehicule } from './vehicule.entity';
+import { Vehicle } from './vehicle.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Client } from './client.entity';
 
@@ -10,8 +10,8 @@ export class Location {
   @ManyToOne(() => Client, (client: Client) => client.id)
   client: Client;
 
-  @ManyToOne(() => Vehicule, (vehicule: Vehicule) => vehicule.id)
-  vehicule: Vehicule;
+  @ManyToOne(() => Vehicle, (vehicle: Vehicle) => vehicle.id)
+  vehicle: Vehicle;
 
   @Column()
   date_debut: Date;

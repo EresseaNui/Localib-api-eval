@@ -1,6 +1,6 @@
 import { LocationModule } from './location.module';
 import { ClientModule } from './client.module';
-import { VehiculeModule } from './vehicule.module';
+import { VehicleModule } from './vehicle.module';
 import { Module } from '@nestjs/common';
 import { AppController } from '../controllers/app.controller';
 import { AppService } from '../services/app.service';
@@ -20,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    VehiculeModule,
+    VehicleModule,
     ClientModule,
     LocationModule,
   ],

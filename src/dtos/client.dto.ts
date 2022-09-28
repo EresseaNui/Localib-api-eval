@@ -8,6 +8,6 @@ export class ClientDto {
   telephone: string;
 }
 
-export class CreateClientDto {}
+export interface CreateClientDto extends Omit<ClientDto, 'id'> {}
 
-export class UpdateClientDto extends PartialType(CreateClientDto) {}
+export class UpdateClientDto extends PartialType(ClientDto) {}
