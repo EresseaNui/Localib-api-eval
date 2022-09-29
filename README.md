@@ -32,6 +32,12 @@
 $ npm install
 ```
 
+## Lunch Docker
+
+```bash
+$ docker compose up
+```
+
 ## Running the app
 
 ```bash
