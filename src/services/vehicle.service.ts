@@ -2,7 +2,11 @@ import { Renting } from 'src/entities/renting.entity';
 import { RentingService } from './renting.service';
 import { Vehicle } from '../entities/vehicle.entity';
 import { from } from 'rxjs';
-import { CreateVehicleDto, UpdateVehicleDto } from '../dtos/vehicle.dto';
+import {
+  CreateVehicleDto,
+  UpdateVehicleDto,
+  VehicleDisponibilityDto,
+} from '../dtos/vehicle.dto';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,8 +16,6 @@ export class VehicleService {
   constructor(
     @InjectRepository(Vehicle)
     private readonly vehicleRepository: Repository<Vehicle>,
-    @Inject(forwardRef(() => RentingService))
-    private readonly rentingService: RentingService,
   ) {}
 
   /**
@@ -36,8 +38,9 @@ export class VehicleService {
     );
   }
 
-  find(param: boolean) {
-    if (param) return this.findVehicleDisponibilityById();
+  find(param: boolean, findDisponibilityPayload: VehicleDisponibilityDto) {
+    if (param)
+      return this.findVehicleDisponibilityById(findDisponibilityPayload);
 
     return this.findAll();
   }
@@ -79,13 +82,11 @@ export class VehicleService {
     return from(this.vehicleRepository.delete({ id }));
   }
 
-  async findVehicleDisponibilityById() {
-    const vehicles: Vehicle[] = await this.findAll();
-    const rentings: Renting[] = await this.rentingService.findAll();
-
-    // const rentings: Rentings[] = this.findAll();
-
-    console.log('vehicle', vehicles);
-    console.log('rentings', rentings);
+  async findVehicleDisponibilityById(
+    findDisponibilityPayload: VehicleDisponibilityDto,
+  ) {
+    return await this.vehicleRepository
+      .query(`SELECT id FROM vehicle WHERE vehicle.id NOT IN (
+      SELECT DISTINCT "vehicleId" FROM renting WHERE ('${findDisponibilityPayload.start_date}' BETWEEN start_date AND end_date) OR ('${findDisponibilityPayload.end_date}' BETWEEN start_date AND end_date) )`);
   }
 }

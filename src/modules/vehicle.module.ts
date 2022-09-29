@@ -11,11 +11,10 @@ import { Module, forwardRef } from '@nestjs/common';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Vehicle, Renting, Customer]),
-    forwardRef(() => RentingModule),
+    TypeOrmModule.forFeature([Vehicle, Renting, Customer])
   ],
   controllers: [VehicleController],
-  providers: [VehicleService, RentingService, CustomerService],
+  providers: [VehicleService],
   exports: [VehicleService],
 })
 export class VehicleModule {}

@@ -15,7 +15,6 @@ export class RentingService {
     @InjectRepository(Renting)
     private readonly rentingRepository: Repository<Renting>,
     private readonly customerService: CustomerService,
-    @Inject(forwardRef(() => VehicleService))
     private readonly vehicleService: VehicleService,
   ) {}
 

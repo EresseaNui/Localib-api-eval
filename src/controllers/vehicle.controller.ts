@@ -8,7 +8,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { CreateVehicleDto, UpdateVehicleDto } from 'src/dtos/vehicle.dto';
+import {
+  CreateVehicleDto,
+  UpdateVehicleDto,
+  VehicleDisponibilityDto,
+} from 'src/dtos/vehicle.dto';
 import { VehicleService } from 'src/services/vehicle.service';
 
 @Controller('vehicles')
@@ -23,8 +27,11 @@ export class VehicleController {
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules. */
   @Get()
-  findAll(@Query('disponibility') disponibility: boolean) {
-    return this.vehicleService.find(disponibility);
+  findAll(
+    @Query('disponibility') disponibility: boolean,
+    @Body() findDisponibilityPayload: VehicleDisponibilityDto,
+  ) {
+    return this.vehicleService.find(disponibility, findDisponibilityPayload);
   }
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules/:id. */

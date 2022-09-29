@@ -13,8 +13,7 @@ import { VehicleModule } from './vehicle.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Renting, Vehicle, Customer]),
-    CustomerModule,
-    forwardRef(() => VehicleModule),
+    CustomerModule,VehicleModule
   ],
   controllers: [RentingController],
   providers: [RentingService],

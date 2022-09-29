@@ -13,3 +13,7 @@ export class VehicleDto {
 
 export interface CreateVehicleDto extends Omit<VehicleDto, 'id'> {}
 export class UpdateVehicleDto extends PartialType(VehicleDto) {}
+export class VehicleDisponibilityDto {
+  start_date: Date;
+  end_date: Date;
+}
