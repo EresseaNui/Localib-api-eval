@@ -8,7 +8,7 @@ export class VehicleDto {
   model: string;
   registration_number: string;
   vehicle_state: VehicleEtat;
-  disponibility: boolean;
+  renting_price: number;
 }
 
 export interface CreateVehicleDto extends Omit<VehicleDto, 'id'> {}

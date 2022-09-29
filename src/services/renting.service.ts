@@ -1,7 +1,7 @@
 import { CreateRentingDto, UpdateRentingDto } from './../dtos/renting.dto';
 import { Renting } from './../entities/renting.entity';
 import { Customer } from '../entities/customer.entity';
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { from, Observable } from 'rxjs';
@@ -33,21 +33,18 @@ export class RentingService {
     location.customer = customer;
     location.vehicle = vehicle;
 
-    const vehiclePayload = {
-      disponibility: false,
-    };
-
-    await this.vehicleService.update(vehicle.id, vehiclePayload);
     return await this.rentingRepository.save(location);
   }
 
-  findAll(): Promise<Renting[]> {
-    return this.rentingRepository.find({
-      relations: {
-        vehicle: true,
-        customer: true,
-      },
-    });
+  findAll(): Observable<Renting[]> {
+    return from(
+      this.rentingRepository.find({
+        relations: {
+          vehicle: true,
+          customer: true,
+        },
+      }),
+    );
   }
 
   findOnyById(id: string): Promise<Renting> {

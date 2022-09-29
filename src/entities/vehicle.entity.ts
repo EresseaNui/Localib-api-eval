@@ -42,7 +42,7 @@ export class Vehicle {
   vehicle_state: VehicleEtat;
 
   @Column()
-  disponibility: boolean;
+  renting_price: number;
 
   @OneToMany(() => Renting, (renting) => renting.id)
   rentings: Renting[];
