@@ -1,11 +1,9 @@
+import { Renting } from 'src/entities/renting.entity';
+import { RentingService } from './renting.service';
 import { Vehicle } from '../entities/vehicle.entity';
 import { from } from 'rxjs';
-import {
-  CreateVehicleDto,
-  UpdateVehicleDto,
-  VehicleDto,
-} from '../dtos/vehicle.dto';
-import { Injectable } from '@nestjs/common';
+import { CreateVehicleDto, UpdateVehicleDto } from '../dtos/vehicle.dto';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -14,6 +12,8 @@ export class VehicleService {
   constructor(
     @InjectRepository(Vehicle)
     private readonly vehicleRepository: Repository<Vehicle>,
+    @Inject(forwardRef(() => RentingService))
+    private readonly rentingService: RentingService,
   ) {}
 
   /**
@@ -36,12 +36,18 @@ export class VehicleService {
     );
   }
 
+  find(param: boolean) {
+    if (param) return this.findVehicleDisponibilityById();
+
+    return this.findAll();
+  }
+
   /**
    * Il renvoie un Observable d'un tableau d'entités Vehicule.
    * @returns Un Observable d'un tableau d'entités Vehicule.
    */
-  findAll() {
-    return from(this.vehicleRepository.find());
+  findAll(): Promise<Vehicle[]> {
+    return this.vehicleRepository.find();
   }
 
   /**
@@ -71,5 +77,15 @@ export class VehicleService {
    */
   delete(id: string) {
     return from(this.vehicleRepository.delete({ id }));
+  }
+
+  async findVehicleDisponibilityById() {
+    const vehicles: Vehicle[] = await this.findAll();
+    const rentings: Renting[] = await this.rentingService.findAll();
+
+    // const rentings: Rentings[] = this.findAll();
+
+    console.log('vehicle', vehicles);
+    console.log('rentings', rentings);
   }
 }

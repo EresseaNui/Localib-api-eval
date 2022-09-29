@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateVehicleDto, UpdateVehicleDto } from 'src/dtos/vehicle.dto';
 import { VehicleService } from 'src/services/vehicle.service';
@@ -22,8 +23,8 @@ export class VehicleController {
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules. */
   @Get()
-  findAll() {
-    return this.vehicleService.findAll();
+  findAll(@Query('disponibility') disponibility: boolean) {
+    return this.vehicleService.find(disponibility);
   }
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules/:id. */

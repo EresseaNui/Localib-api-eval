@@ -9,25 +9,26 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 @Controller('rentings')
 export class RentingController {
-  constructor(private readonly locationService: RentingService) {}
+  constructor(private readonly rentingService: RentingService) {}
 
   @Post()
   create(@Body() createLocationPayload: CreateRentingDto) {
-    return this.locationService.create(createLocationPayload);
+    return this.rentingService.create(createLocationPayload);
   }
 
   @Get()
   findAll() {
-    return this.locationService.findAll();
+    return this.rentingService.findAll();
   }
 
   @Get(':id')
   findOneById(@Param('id') id: string) {
-    return this.locationService.findOnyById(id);
+    return this.rentingService.findOnyById(id);
   }
 
   @Patch(':id')
@@ -35,11 +36,11 @@ export class RentingController {
     @Param('id') id: string,
     @Body() updateLocationPayload: UpdateRentingDto,
   ) {
-    return this.locationService.update(id, updateLocationPayload);
+    return this.rentingService.update(id, updateLocationPayload);
   }
 
   @Delete(':id')
   delete(@Param('id') id: string) {
-    return this.locationService.delete(id);
+    return this.rentingService.delete(id);
   }
 }

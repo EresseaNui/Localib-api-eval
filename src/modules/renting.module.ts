@@ -1,8 +1,9 @@
+import { VehicleService } from 'src/services/vehicle.service';
 import { Customer } from '../entities/customer.entity';
 import { Vehicle } from '../entities/vehicle.entity';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { Renting } from 'src/entities/renting.entity';
 import { CustomerModule } from './customer.module';
 import { RentingController } from 'src/controllers/renting.controller';
@@ -13,7 +14,7 @@ import { VehicleModule } from './vehicle.module';
   imports: [
     TypeOrmModule.forFeature([Renting, Vehicle, Customer]),
     CustomerModule,
-    VehicleModule,
+    forwardRef(() => VehicleModule),
   ],
   controllers: [RentingController],
   providers: [RentingService],
