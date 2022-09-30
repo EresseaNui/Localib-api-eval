@@ -82,11 +82,12 @@ export class VehicleService {
     return from(this.vehicleRepository.delete({ id }));
   }
 
-  async findVehicleDisponibilityById(
+  findVehicleDisponibilityById(
     findDisponibilityPayload: VehicleDisponibilityDto,
-  ) {
-    return await this.vehicleRepository
-      .query(`SELECT id FROM vehicle WHERE vehicle.id NOT IN (
-      SELECT DISTINCT "vehicleId" FROM renting WHERE ('${findDisponibilityPayload.start_date}' BETWEEN start_date AND end_date) OR ('${findDisponibilityPayload.end_date}' BETWEEN start_date AND end_date) )`);
+  ): Promise<{ id: string }> {
+    return this.vehicleRepository.query(
+      'SELECT * FROM vehicle WHERE vehicle.id NOT IN (SELECT DISTINCT "vehicleId" FROM renting WHERE ($1 BETWEEN start_date AND end_date) OR ($2 BETWEEN start_date AND end_date) AND (start_date BETWEEN $1 AND $2) OR (end_date BETWEEN $1 AND $2)  )',
+      [findDisponibilityPayload.start_date, findDisponibilityPayload.end_date],
+    );
   }
 }

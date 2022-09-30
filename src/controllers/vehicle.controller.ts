@@ -54,4 +54,11 @@ export class VehicleController {
   delete(@Param('id') id: string) {
     return this.vehicleService.delete(id);
   }
+
+  @Post('disponibility')
+  findDisponibilty(@Body() findDisponibilityPayload: VehicleDisponibilityDto) {
+    return this.vehicleService.findVehicleDisponibilityById(
+      findDisponibilityPayload,
+    );
+  }
 }
