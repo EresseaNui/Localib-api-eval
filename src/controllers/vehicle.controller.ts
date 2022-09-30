@@ -27,11 +27,8 @@ export class VehicleController {
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules. */
   @Get()
-  findAll(
-    @Query('disponibility') disponibility: boolean,
-    @Body() findDisponibilityPayload: VehicleDisponibilityDto,
-  ) {
-    return this.vehicleService.find(disponibility, findDisponibilityPayload);
+  findAll() {
+    return this.vehicleService.findAll();
   }
 
   /* Méthode appelée lorsqu'une requête GET est envoyée au point de terminaison /vehicules/:id. */
@@ -56,9 +53,7 @@ export class VehicleController {
   }
 
   @Post('disponibility')
-  findDisponibilty(@Body() findDisponibilityPayload: VehicleDisponibilityDto) {
-    return this.vehicleService.findVehicleDisponibilityById(
-      findDisponibilityPayload,
-    );
+  findAvailabilty(@Body() findDisponibilityPayload: VehicleDisponibilityDto) {
+    return this.vehicleService.findAvailableVehicle(findDisponibilityPayload);
   }
 }

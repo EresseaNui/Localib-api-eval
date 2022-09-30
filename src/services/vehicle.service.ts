@@ -38,13 +38,6 @@ export class VehicleService {
     );
   }
 
-  find(param: boolean, findDisponibilityPayload: VehicleDisponibilityDto) {
-    if (param)
-      return this.findVehicleDisponibilityById(findDisponibilityPayload);
-
-    return this.findAll();
-  }
-
   /**
    * Il renvoie un Observable d'un tableau d'entités Vehicule.
    * @returns Un Observable d'un tableau d'entités Vehicule.
@@ -82,7 +75,7 @@ export class VehicleService {
     return from(this.vehicleRepository.delete({ id }));
   }
 
-  findVehicleDisponibilityById(
+  findAvailableVehicle(
     findDisponibilityPayload: VehicleDisponibilityDto,
   ): Promise<{ id: string }> {
     return this.vehicleRepository.query(
