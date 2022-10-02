@@ -1,5 +1,3 @@
-import { Renting } from 'src/entities/renting.entity';
-import { RentingService } from './renting.service';
 import { Vehicle } from '../entities/vehicle.entity';
 import { from } from 'rxjs';
 import {
@@ -7,7 +5,7 @@ import {
   UpdateVehicleDto,
   VehicleDisponibilityDto,
 } from '../dtos/vehicle.dto';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 

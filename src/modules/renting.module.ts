@@ -1,4 +1,3 @@
-import { VehicleService } from 'src/services/vehicle.service';
 import { Customer } from '../entities/customer.entity';
 import { Vehicle } from '../entities/vehicle.entity';
 
