@@ -43,4 +43,9 @@ export class RentingController {
   delete(@Param('id') id: string) {
     return this.rentingService.delete(id);
   }
+
+  @Post(':id')
+  findRentingsByUserId(@Param('id') userId: string) {
+    return this.rentingService.findAllByUserId(userId);
+  }
 }

@@ -75,6 +75,13 @@ export class VehicleService {
     return from(this.vehicleRepository.delete({ id }));
   }
 
+  /**
+   * "Rechercher tous les véhicules qui ne sont pas dans le tableau des locations entre la date de
+   * début et de fin du tableau des locations"
+   * </code>
+   * @param {VehicleDisponibilityDto} findDisponibilityPayload - VéhiculeDisponibilitéDto
+   * @returns Un tableau d'objets avec la propriété id.
+   */
   findAvailableVehicle(
     findDisponibilityPayload: VehicleDisponibilityDto,
   ): Promise<{ id: string }> {
