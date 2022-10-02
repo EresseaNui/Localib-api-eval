@@ -6,6 +6,9 @@ Pour lancer l'application, il faut installer les dépendances avec :
 $ npm i
 ```
 
+Créer le fichier .env pour y placer les variable d'environnement nécessaire pour lancer le projet: voir la structure dans les .env.exemple a la racine du projet
+et remplacer les parties nécessaire
+
 Puis lancer la commande pour initialiser le volume docker :
 
 ```bash
